@@ -29,5 +29,6 @@ namespace Vistony.Worker.Infrastructure.Hana
             await using var command = new HanaCommand(query, connection);
             await command.ExecuteNonQueryAsync();
         }
+
     }
 }

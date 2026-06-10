@@ -1,5 +1,7 @@
+.vs/
+
 bin/
 obj/
-Vistony.Worker.Api/bin/ Vistony.Worker.Application/bin/ Vistony.Worker.Domain/bin/ Vistony.Worker.Infrastructure/bin/
-Vistony.Worker.Api/obj/ Vistony.Worker.Application/obj/ Vistony.Worker.Domain/obj/ Vistony.Worker.Infrastructure/obj/
-Vistony.Worker.Api/appsettings.json
+
+**/bin/
+**/obj/
