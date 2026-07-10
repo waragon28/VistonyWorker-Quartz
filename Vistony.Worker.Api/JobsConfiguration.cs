@@ -11,6 +11,7 @@ using Vistony.Worker.Application.ETL.UseCases;
 using Vistony.Worker.Application.ETLCreditosCobranza.UseCases;
 using Vistony.Worker.Application.OrdenFabricacion.UseCases;
 using Vistony.Worker.Application.PagoComisiones.UseCases;
+using Vistony.Worker.Application.PCP.UseCase;
 using Vistony.Worker.Application.RutaHistorico.UseCases;
 using Vistony.Worker.Application.StockCierre.UseCases;
 using Vistony.Worker.Application.TipoCambio.UseCases;
@@ -88,14 +89,14 @@ namespace Vistony.Worker.Api
                     TimeZone = timeZone
                 });
 
-            RecurringJob.AddOrUpdate<ObtenerPagoComisionesJob>(
-                "pago-comisiones",
-                job => job.ExecuteAsync(),
-                configuration["Jobs:PagoComisiones"] ?? "21 11 * * *",
-                new RecurringJobOptions
-                {
-                    TimeZone = timeZone
-                });
+            //RecurringJob.AddOrUpdate<ObtenerPagoComisionesJob>(
+            //    "pago-comisiones",
+            //    job => job.ExecuteAsync(),
+            //    configuration["Jobs:PagoComisiones"] ?? "21 11 * * *",
+            //    new RecurringJobOptions
+            //    {
+            //        TimeZone = timeZone
+            //    });
 
             RecurringJob.AddOrUpdate<ObtenerStockCierreJob>(
                 "stock-cierre",
@@ -142,14 +143,14 @@ namespace Vistony.Worker.Api
                     TimeZone = timeZone
                 });
 
-            RecurringJob.AddOrUpdate<ObtenerComisionesJob>(
-                "comisiones",
-                job => job.ExecuteAsync(),
-                configuration["Jobs:Comisiones"] ?? "15 6/4 * * *",
-                new RecurringJobOptions
-                {
-                    TimeZone = timeZone
-                });
+            //RecurringJob.AddOrUpdate<ObtenerComisionesJob>(
+            //    "comisiones",
+            //    job => job.ExecuteAsync(),
+            //    configuration["Jobs:Comisiones"] ?? "15 6/4 * * *",
+            //    new RecurringJobOptions
+            //    {
+            //        TimeZone = timeZone
+            //    });
 
             RecurringJob.AddOrUpdate<ObtenerETLInduvisJob>(
                 "etl-induvis",
@@ -173,6 +174,24 @@ namespace Vistony.Worker.Api
                 "etl-creditos-cobranza",
                 job => job.ExecuteAsync(),
                 configuration["Jobs:ETLCreditosCobranza"] ?? "30 6 * * *",
+                new RecurringJobOptions
+                {
+                    TimeZone = timeZone
+                });
+
+            RecurringJob.AddOrUpdate<PCPJob>(
+                "pcp",
+                job => job.ExecuteAsync(),
+                configuration["Jobs:PCP"] ?? "55 * * * *",
+                new RecurringJobOptions
+                {
+                    TimeZone = timeZone
+                });
+
+            RecurringJob.AddOrUpdate<WMSJob>(
+                "wms",
+                job => job.ExecuteAsync(),
+                configuration["Jobs:WMS"] ?? "05 * * * *",
                 new RecurringJobOptions
                 {
                     TimeZone = timeZone

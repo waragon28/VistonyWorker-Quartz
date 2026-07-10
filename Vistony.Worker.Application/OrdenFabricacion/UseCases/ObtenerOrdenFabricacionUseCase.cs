@@ -38,7 +38,7 @@ namespace Vistony.Worker.Application.OrdenFabricacion.UseCases
 
             _logger.LogInformation("{Count} órdenes nuevas encontradas.", ordenes.Count);
 
-            var migradasDocNums = new List<int>();
+            var migradasDocNums = new List<string>();
 
             foreach (var orden in ordenes)
             {

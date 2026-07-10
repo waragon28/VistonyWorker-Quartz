@@ -33,8 +33,8 @@ namespace Vistony.Worker.Infrastructure.Hana
             {
                 result.Add(new Domain.OrdenFabricacion.OrdenFabricacion
                 {
-                    OT_Mezcla = Convert.ToInt32(reader["DocNumMZ"]),
-                    OT_Envase = Convert.ToInt32(reader["DocNumEN"]),
+                    OT_Mezcla = reader["DocNumMZ"].ToString()!.ToUpper(),
+                    OT_Envase = reader["DocNumEN"].ToString()!.ToUpper(),
                     ItemName = reader["ItemName"].ToString()!.ToUpper(),
                     UomName = reader["UomName"].ToString()!.ToUpper(),
                     PlannedQty = Convert.ToDouble(reader["PlannedQty"])
@@ -44,7 +44,7 @@ namespace Vistony.Worker.Infrastructure.Hana
             return result;
         }
 
-        public async Task MarcarMigradasAsync(List<int> docNums, string database)
+        public async Task MarcarMigradasAsync(List<string> docNums, string database)
         {
             string inClause = string.Join(",", docNums);
             string sql = $"UPDATE \"{database}\".\"OWOR\" " +

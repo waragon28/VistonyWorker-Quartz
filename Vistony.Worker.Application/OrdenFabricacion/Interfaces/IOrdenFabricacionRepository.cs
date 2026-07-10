@@ -9,6 +9,6 @@ namespace Vistony.Worker.Application.OrdenFabricacion.Interfaces
     public interface IOrdenFabricacionRepository
     {
         Task<List<Domain.OrdenFabricacion.OrdenFabricacion>> ObtenerNuevasAsync(string database);
-        Task MarcarMigradasAsync(List<int> docNums, string database);
+        Task MarcarMigradasAsync(List<string> docNums, string database);
     }
 }

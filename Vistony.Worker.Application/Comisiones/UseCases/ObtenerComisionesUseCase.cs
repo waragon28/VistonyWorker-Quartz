@@ -17,13 +17,11 @@ namespace Vistony.Worker.Application.Comisiones.UseCases
 
         private static readonly string[] _databases =
         {
-            "B1H_VIST_PE",
-            "B1H_ROFA_PE",
             "B1H_VIST_EC",
-            "B1H_VIST_CL",
             "B1H_VIST_BO",
             "B1H_VIST_PY",
-            "B1H_VIST_ES"
+            "B1H_VIST_CL",
+            "B1H_VIST_PE"
         };
 
         public ObtenerComisionesUseCase(
@@ -40,11 +38,15 @@ namespace Vistony.Worker.Application.Comisiones.UseCases
         {
             _logger.LogInformation("Iniciando flujo COMISIONES");
 
-            var tasks = _databases
-                .Select(database => EjecutarDatabaseAsync(database));
+            var tasks = new List<Task>();
+
+            foreach (var database in _databases)
+            {
+                tasks.Add(EjecutarDatabaseAsync(database));
+            }
 
             await Task.WhenAll(tasks);
-
+              
             _logger.LogInformation("Finalizó flujo COMISIONES");
         }
 
@@ -53,24 +55,22 @@ namespace Vistony.Worker.Application.Comisiones.UseCases
             try
             {
                 await _repository.EjecutarAsync(database);
-
                 await _correoClient.EnviarAsync(
                     $"{database} Actualizacion de P_VIS_VEN_COMISIONES_ACTU",
                     $"Se actualizo el P_VIS_VEN_COMISIONES_ACTU a las Hora : {DateTime.Now}");
 
-                _logger.LogInformation(
-                    "Comisiones ejecutado correctamente para {Database}",
-                    database);
+                await _repository.EjecutarB2BAsync(database);
+                await _correoClient.EnviarAsync(
+                    $"{database} Actualizacion de P_VIS_VEN_PAGO_COMISIONES_B2B_ACTU",
+                    $"Se actualizo el P_VIS_VEN_PAGO_COMISIONES_B2B_ACTU a las Hora : {DateTime.Now}");
+
+                _logger.LogInformation("Comisiones ejecutado correctamente para {Database}", database);
             }
             catch (Exception ex)
             {
-                _logger.LogError(
-                    ex,
-                    "Error ejecutando COMISIONES para {Database}",
-                    database);
-
+                _logger.LogError(ex, "Error ejecutando COMISIONES para {Database}", database);
                 await _correoClient.EnviarAsync(
-                    $"{database} Error Actualizacion de P_VIS_VEN_COMISIONES_ACTU",
+                    $"{database} Error Actualizacion de COMISIONES",
                     ex.Message);
             }
         }

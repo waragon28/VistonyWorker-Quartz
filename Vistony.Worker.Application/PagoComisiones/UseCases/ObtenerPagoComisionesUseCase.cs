@@ -16,8 +16,11 @@ namespace Vistony.Worker.Application.PagoComisiones.UseCases
 
         private static readonly string[] _databases =
         {
-            "B1H_VIST_PE",
-            "B1H_VIST_EC"
+            "B1H_VIST_EC",
+            "B1H_VIST_BO",
+            "B1H_VIST_PY",
+            "B1H_VIST_CL",
+            "B1H_VIST_PE"
         };
 
         public ObtenerPagoComisionesUseCase(

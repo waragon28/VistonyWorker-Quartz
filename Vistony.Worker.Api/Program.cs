@@ -7,7 +7,7 @@ using Vistony.Worker.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Puerto del proyecto Vistony.Worker
-builder.WebHost.UseUrls("http://0.0.0.0:7879");
+//builder.WebHost.UseUrls("http://0.0.0.0:7879");
 
 // Permite ejecutar la app como Servicio Windows
 builder.Host.UseWindowsService();

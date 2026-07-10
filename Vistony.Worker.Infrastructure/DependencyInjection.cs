@@ -24,6 +24,8 @@ using Vistony.Worker.Application.OrdenFabricacion.Interfaces;
 using Vistony.Worker.Application.OrdenFabricacion.UseCases;
 using Vistony.Worker.Application.PagoComisiones.Interfaces;
 using Vistony.Worker.Application.PagoComisiones.UseCases;
+using Vistony.Worker.Application.PCP.Interfaces;
+using Vistony.Worker.Application.PCP.UseCase;
 using Vistony.Worker.Application.RutaHistorico.Interfaces;
 using Vistony.Worker.Application.RutaHistorico.UseCases;
 using Vistony.Worker.Application.StockCierre.Interfaces;
@@ -130,6 +132,10 @@ public static class DependencyInjection
         services.AddScoped<IETLCreditosCobranzaRepository, ETLCreditosCobranzaHanaRepository>();
         services.AddScoped<ObtenerETLCreditosCobranzaUseCase>();
         services.AddScoped<ObtenerETLCreditosCobranzaJob>();
+
+        services.AddScoped<IPCPRepository, PCPHanaRepository>();
+        services.AddScoped<PCPUseCase>();
+        services.AddScoped<PCPJob>();
 
         return services;
     }

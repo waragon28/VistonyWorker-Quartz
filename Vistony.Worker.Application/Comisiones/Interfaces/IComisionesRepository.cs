@@ -9,5 +9,6 @@ namespace Vistony.Worker.Application.Comisiones.Interfaces
     public interface IComisionesRepository
     {
         Task EjecutarAsync(string database);
+        Task EjecutarB2BAsync(string database);
     }
 }
